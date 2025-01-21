@@ -41,7 +41,7 @@ for ch in channels:
 # https://stackoverflow.com/questions/9427163/remove-duplicate-dict-in-list-in-python
 # for some reason the api returns duplicate articles, so im removing duplicate dicts from the list
 articles = [dict(tup) for tup in {tuple(di.items()) for di in articles}]
-print(articles)
+# print(articles)
 articles.sort(key=lambda obj: obj['score'], reverse=True)
 
 # only getting first 5 articles?
