@@ -20,22 +20,22 @@ headers = {
 channels = ['/bbc', '/cnn', '/aljazeera', '/sky', '/dailymail', '/theguardian', '/independent']
 articles = []
 
-# testing it out with just 1 channel atm
-conn.request("GET", '/cnn', headers=headers) # making the req with the channel right now
-res = conn.getresponse() 
-raw_data = res.read() # this is just raw byte data
-decoded_data = raw_data.decode("utf-8") # the decoded byte data (converts it into a str)
-parsed_data = json.loads(decoded_data) # goes ahead and actually parses the prev decoded byte data str into its respective data type (in this case, a list of dicts)
-articles.extend(parsed_data) 
+# # testing it out with just 1 channel atm
+# conn.request("GET", '/cnn', headers=headers) # making the req with the channel right now
+# res = conn.getresponse() 
+# raw_data = res.read() # this is just raw byte data
+# decoded_data = raw_data.decode("utf-8") # the decoded byte data (converts it into a str)
+# parsed_data = json.loads(decoded_data) # goes ahead and actually parses the prev decoded byte data str into its respective data type (in this case, a list of dicts)
+# articles.extend(parsed_data) 
 
-# # getting articles from all 7 possible channels
-# for ch in channels:
-#     conn.request("GET", ch, headers=headers) # making the req with the channel right now
-#     res = conn.getresponse() 
-#     raw_data = res.read()
-#     decoded_data = raw_data.decode("utf-8")
-#     parsed_data = json.loads(decoded_data)
-#     if parsed_data: articles.extend(parsed_data)
+# getting articles from all 7 possible channels
+for ch in channels:
+    conn.request("GET", ch, headers=headers) # making the req with the channel right now
+    res = conn.getresponse() 
+    raw_data = res.read()
+    decoded_data = raw_data.decode("utf-8")
+    parsed_data = json.loads(decoded_data)
+    if parsed_data: articles.extend(parsed_data)
 
 
 # https://stackoverflow.com/questions/9427163/remove-duplicate-dict-in-list-in-python
@@ -47,8 +47,8 @@ articles.sort(key=lambda obj: obj['score'], reverse=True)
 # only getting first 5 articles?
 if len(articles) > 5: articles = articles[:5]
 
-print('-------')
-print(articles) # seeing if it's actually sorted
+# print('-------')
+# print(articles) # seeing if it's actually sorted
 
 # just making sure of something
 # test_articles = [{'title': 'Example 1', 'url': 'https://wikipedia.com', 'score': 10}, {'title': 'suck eggs', 'url': 'https://nintendo.com', 'score': 100}]
